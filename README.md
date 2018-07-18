@@ -17,9 +17,6 @@
 
 
 
-
-
-
 	## Power  --------   canvas粉末效果  
 
 	#### [预览地址](http://htmlpreview.github.io/?https://github.com/AlanSean/gather/blob/master/powder/index.html)
@@ -28,9 +25,7 @@
 
 		    #### 		剑灵游戏活动看到，进行扒取的。[我是来源地址](http://bns.qq.com/cp/a20180612happynight/index.htm)
 
-
-
-​				
+				
 
 
 
