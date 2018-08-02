@@ -1,33 +1,42 @@
 var Stage = function() {
     function t(t, n, i) {
         var e = this;
-        this.canvas = document.getElementById(t),
-        this.ctx = this.canvas.getContext("2d"),
-        this.renderList = [],
-        this.needClear = !0,
-        this.canvas.width = n || $(window).width(),
-        this.canvas.height = i || $(window).height(), $(window).on("resize", function() {
-            e.canvas.width = n || $(window).width(), e.canvas.height = i || $(window).height()
+        this.canvas = document.getElementById(t)
+        this.ctx = this.canvas.getContext("2d")
+        this.renderList = []
+        this.needClear = !0
+        this.canvas.width = n || $(window).width()
+        this.canvas.height = i || $(window).height()
+        $(window).on("resize", function() {
+            e.canvas.width = n || $(window).width()
+            e.canvas.height = i || $(window).height()
         })
     }
-    return window.requestAnimationFrame = function() {
+
+    window.requestAnimationFrame = function() {
         return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(t) {
             window.setTimeout(t, 1e3 / 60)
         }
-    }(), t.prototype.update = function() {
+    }()
+    t.prototype.update = function() {
         var t = this;
-        t.needClear && t.ctx.clearRect(0, 0, t.canvas.width, t.canvas.height), t.renderList.forEach(function(n) {
+        t.needClear && t.ctx.clearRect(0, 0, t.canvas.width, t.canvas.height)
+        t.renderList.forEach(function(n) {
             n(t.ctx, t.canvas)
-        }), requestAnimationFrame(function() {
+        })
+        requestAnimationFrame(function() {
             t.update()
         })
-    }, t.prototype.onUpdate = function(t) {
+    }
+    t.prototype.onUpdate = function(t) {
         this.renderList.push(t)
-    }, t
-}();;
+    }
+    return t
+
+}();
 var Twinkle = function() {
     function t(t, e, a) {
-        this.initSymbols(t, e, a), this.particles = [], this._pool = [], this.mouse = new s
+        this.initSymbols(t, e, a), this.particles = [], this._pool = [], this.mouse = new s()
     }
 
     function s(t, s) {
@@ -111,28 +120,79 @@ var Twinkle = function() {
 }();;
 var Fireworks = function() {
     function t(t) {
-        this.dt = 0, this.oldTime = Date.now(), this.canvas = t, this.canvasContainer = $("#canvas-container");
+        this.dt = 0
+        this.oldTime = Date.now()
+        this.canvas = t
+        this.canvasContainer = $("#canvas-container");
         document.getElementById("canvas-container");
         this.canvas.onselectstart = function() {
             return !1
-        }, this.cw = this.canvas.width, this.ch = this.canvas.height, this.particles = [], this.partCount = 30, this.fireworks = [], this.currentHue = 170, this.partSpeed = 8, this.partSpeedVariance = 17, this.partWind = 32, this.partFriction = 6, this.partGravity = 2, this.hueMin = 20, this.hueMax = 20, this.fworkSpeed = 2, this.fworkAccel = 6, this.hueVariance = 180, this.flickerDensity = 22, this.showShockwave = !0, this.showTarget = !1, this.clearAlpha = 25, this.ctx = this.canvas.getContext("2d"), this.ctx.lineCap = "round", this.ctx.lineJoin = "round", this.lineWidth = 1, this.scrollTop = 0, this.scrollLeft = 0
+        }
+        this.cw = this.canvas.width
+        this.ch = this.canvas.height
+        this.particles = []
+        this.partCount = 30
+        this.fireworks = []
+        this.currentHue = 170
+        this.partSpeed = 8
+        this.partSpeedVariance = 17
+        this.partWind = 32
+        this.partFriction = 6
+        this.partGravity = 2
+        this.hueMin = 20
+        this.hueMax = 20
+        this.fworkSpeed = 2
+        this.fworkAccel = 6
+        this.hueVariance = 180
+        this.flickerDensity = 22
+        this.showShockwave = !0
+        this.showTarget = !1
+        this.clearAlpha = 25
+        this.ctx = this.canvas.getContext("2d")
+        this.ctx.lineCap = "round"
+        this.ctx.lineJoin = "round"
+        this.lineWidth = 1
+        this.scrollTop = 0
+        this.scrollLeft = 0
     }
 
     function i(t, i, s, e) {
-        this.group = e, this.x = t, this.y = i, this.coordLast = [{
+        this.group = e
+        this.x = t
+         this.y = i
+         this.coordLast = [{
             x: t,
             y: i
-        }, {
+        },
+         {
             x: t,
             y: i
-        }, {
+        },
+         {
             x: t,
             y: i
-        }], this.angle = h(0, 360), this.speed = h(e.partSpeed - e.partSpeedVariance <= 0 ? 1 : e.partSpeed - e.partSpeedVariance, e.partSpeed + e.partSpeedVariance), this.friction = 1 - e.partFriction / 100, this.gravity = e.partGravity / 2, this.hue = h(s - e.hueVariance, s + e.hueVariance), this.brightness = h(50, 80), this.alpha = h(40, 100) / 100, this.decay = h(10, 50) / 1e3, this.wind = (h(0, e.partWind) - e.partWind / 2) / 25, this.lineWidth = e.lineWidth
+        }]
+        this.angle = h(0, 360)
+        this.speed = h(e.partSpeed - e.partSpeedVariance <= 0 ? 1 : e.partSpeed - e.partSpeedVariance, e.partSpeed + e.partSpeedVariance)
+        this.friction = 1 - e.partFriction / 100
+        this.gravity = e.partGravity / 2
+        this.hue = h(s - e.hueVariance, s + e.hueVariance)
+        this.brightness = h(50, 80)
+        this.alpha = h(40, 100) / 100
+        this.decay = h(10, 50) / 1e3
+        this.wind = (h(0, e.partWind) - e.partWind / 2) / 25
+        this.lineWidth = e.lineWidth
     }
 
     function s(t, i, s, e, r) {
-        this.group = r, this.x = t, this.y = i, this.startX = t, this.startY = i, this.hitX = !1, this.hitY = !1, this.coordLast = [{
+        this.group = r
+        this.x = t
+        this.y = i
+        this.startX = t
+        this.startY = i
+        this.hitX = !1
+        this.hitY = !1
+        this.coordLast = [{
             x: t,
             y: i
         }, {
@@ -141,7 +201,17 @@ var Fireworks = function() {
         }, {
             x: t,
             y: i
-        }], this.targetX = s, this.targetY = e, this.speed = r.fworkSpeed, this.angle = Math.atan2(e - i, s - t), this.shockwaveAngle = Math.atan2(e - i, s - t) + 90 * (Math.PI / 180), this.acceleration = r.fworkAccel / 100, this.hue = r.currentHue, this.brightness = h(50, 80), this.alpha = h(50, 100) / 100, this.lineWidth = r.lineWidth, this.targetRadius = 1
+        }]
+        this.targetX = s
+        this.targetY = e
+        this.speed = r.fworkSpeed
+        this.angle = Math.atan2(e - i, s - t)
+        this.shockwaveAngle = Math.atan2(e - i, s - t) + 90 * (Math.PI / 180)
+        this.acceleration = r.fworkAccel / 100
+        this.hue = r.currentHue, this.brightness = h(50, 80)
+        this.alpha = h(50, 100) / 100
+        this.lineWidth = r.lineWidth
+        this.targetRadius = 1
     }
     if (!document.createElement("canvas").getContext) return $.noop;
     var h = function(t, i) {
@@ -150,55 +220,96 @@ var Fireworks = function() {
         e = function(t, i, s, h, e, r, a, o) {
             return !(e > t + s || t > e + a || r > i + h || i > r + o)
         };
-    return t.prototype.createParticles = function(t, s, h) {
+    t.prototype.createParticles = function(t, s, h) {
         for (var e = this.partCount; e--;) this.particles.push(new i(t, s, h, this))
-    }, t.prototype.updateParticles = function() {
+    }
+     t.prototype.updateParticles = function() {
         for (var t = this.particles.length; t--;) {
             var i = this.particles[t];
-            i.update(t, this.ctx)
+
+            i.update(t)
         }
-    }, t.prototype.drawParticles = function() {
+    }
+    t.prototype.drawParticles = function() {
         for (var t = this.particles.length; t--;) {
             var i = this.particles[t];
             i.draw(this.ctx)
         }
-    }, t.prototype.createFireworks = function(t, i, h, e) {
+    }
+    t.prototype.createFireworks = function(t, i, h, e) {
         this.fireworks.push(new s(t, i, h, e, this))
-    }, t.prototype.updateFireworks = function() {
+    }
+    t.prototype.updateFireworks = function() {
         for (var t = this.fireworks.length; t--;) {
             var i = this.fireworks[t];
             i.update(t, this.ctx)
         }
-    }, t.prototype.drawFireworks = function() {
+    }
+    t.prototype.drawFireworks = function() {
         for (var t = this.fireworks.length; t--;) {
             var i = this.fireworks[t];
             i.draw(this.ctx)
         }
-    }, t.prototype.clear = function() {
+    }
+    t.prototype.clear = function() {
         this.particles = [], this.fireworks = []
-    }, t.prototype.updateDelta = function() {
+    }
+    t.prototype.updateDelta = function() {
         var t = Date.now();
         this.dt = (t - this.oldTime) / 16, this.dt = this.dt > 5 ? 5 : this.dt, this.oldTime = t
-    }, t.prototype.render = function() {
-        this.updateDelta(), this.ctx.save(), this.ctx.globalCompositeOperation = "destination-out", this.ctx.fillStyle = "rgba(0,0,0," + this.clearAlpha / 100 + ")", this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height), this.ctx.globalCompositeOperation = "lighter", this.updateFireworks(), this.updateParticles(), this.drawFireworks(), this.drawParticles(), this.ctx.restore()
-    }, i.prototype.update = function(t) {
+    }
+    t.prototype.render = function() {
+        this.updateDelta()
+        this.ctx.save()
+        this.ctx.globalCompositeOperation = "destination-out"
+        this.ctx.fillStyle = "rgba(0,0,0," + this.clearAlpha / 100 + ")"
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+        this.ctx.globalCompositeOperation = "lighter"
+        this.updateFireworks()
+        this.updateParticles()
+        this.drawFireworks()
+        this.drawParticles()
+        this.ctx.restore()
+    }
+     i.prototype.update = function(t) {
         var i = this.group,
             s = this.angle * Math.PI / 180,
             h = Math.cos(s) * this.speed,
             r = Math.sin(s) * this.speed + this.gravity;
-        this.speed *= this.friction, this.coordLast[2].x = this.coordLast[1].x, this.coordLast[2].y = this.coordLast[1].y, this.coordLast[1].x = this.coordLast[0].x, this.coordLast[1].y = this.coordLast[0].y, this.coordLast[0].x = this.x, this.coordLast[0].y = this.y, this.x += h * i.dt, this.y += r * i.dt, this.angle += this.wind, this.alpha -= this.decay, (!e(0, 0, i.cw, i.ch, this.x - i.scrollLeft - this.radius, this.y - i.scrollTop - this.radius, 2 * this.radius, 2 * this.radius) || this.alpha < .05) && (i.particles.splice(t, 1), this.group = null)
-    }, i.prototype.draw = function(t) {
+        this.speed *= this.friction, this.coordLast[2].x = this.coordLast[1].x
+        this.coordLast[2].y = this.coordLast[1].y
+        this.coordLast[1].x = this.coordLast[0].x
+        this.coordLast[1].y = this.coordLast[0].y
+        this.coordLast[0].x = this.x
+        this.coordLast[0].y = this.y
+        this.x += h * i.dt, this.y += r * i.dt
+        this.angle += this.wind
+        this.alpha -= this.decay;
+        (!e(0, 0, i.cw, i.ch, this.x - i.scrollLeft - this.radius, this.y - i.scrollTop - this.radius, 2 * this.radius, 2 * this.radius) || this.alpha < .05) && (i.particles.splice(t, 1), this.group = null)
+    }
+    i.prototype.draw = function(t) {
         var i = this.group,
             s = h(1, 3) - 1;
-        if (t.beginPath(), t.moveTo(Math.round(this.coordLast[s].x - i.scrollLeft), Math.round(this.coordLast[s].y - i.scrollTop)), t.lineTo(Math.round(this.x - i.scrollLeft), Math.round(this.y - i.scrollTop)), t.closePath(), t.strokeStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + this.alpha + ")", t.stroke(), this.group.flickerDensity > 0) {
+        if (t.beginPath(), t.moveTo(Math.round(this.coordLast[s].x - i.scrollLeft), Math.round(this.coordLast[s].y - i.scrollTop)), t.lineTo(Math.round(this.x - i.scrollLeft),
+        Math.round(this.y - i.scrollTop)),
+        t.closePath(),
+        t.strokeStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + this.alpha + ")",
+        t.stroke(),
+        this.group.flickerDensity > 0) {
             var e = 50 - this.group.flickerDensity;
             if (h(0, e) === e) {
-                t.beginPath(), t.arc(Math.round(this.x - i.scrollLeft), Math.round(this.y - i.scrollTop), h(this.lineWidth, this.lineWidth + 3) / 2, 0, 2 * Math.PI, !1), t.closePath();
+                t.beginPath()
+                t.arc(Math.round(this.x - i.scrollLeft),
+                Math.round(this.y - i.scrollTop),
+                h(this.lineWidth, this.lineWidth + 3) / 2, 0, 2 * Math.PI, !1)
+                t.closePath();
                 var r = h(50, 100) / 100;
-                t.fillStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + r + ")", t.fill()
+                t.fillStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + r + ")"
+                t.fill()
             }
         }
-    }, s.prototype.update = function(t, i) {
+    }
+     s.prototype.update = function(t, i) {
         i.lineWidth = this.lineWidth;
         var s = this.group,
             e = Math.cos(this.angle) * this.speed,
@@ -207,40 +318,34 @@ var Fireworks = function() {
             {
                 h(0, 9)
             }
-            s.createParticles(this.targetX, this.targetY, this.hue), s.fireworks.splice(t, 1), this.group = null
+            s.createParticles(this.targetX, this.targetY, this.hue)
+             s.fireworks.splice(t, 1)
+              this.group = null
         }
-    }, s.prototype.draw = function(t) {
+    }
+    s.prototype.draw = function(t) {
         t.lineWidth = this.lineWidth;
         var i = h(1, 3) - 1,
             s = this.group;
-        t.beginPath(), t.moveTo(Math.round(this.coordLast[i].x - s.scrollLeft), Math.round(this.coordLast[i].y - s.scrollTop)), t.lineTo(Math.round(this.x - s.scrollLeft), Math.round(this.y - s.scrollTop)), t.closePath(), t.strokeStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + this.alpha + ")", t.stroke(), s.showTarget && (t.save(), t.beginPath(), t.arc(Math.round(this.targetX - s.scrollLeft), Math.round(this.targetY - s.scrollTop), this.targetRadius, 0, 2 * Math.PI, !1), t.closePath(), t.lineWidth = 1, t.stroke(), t.restore()), s.showShockwave && (t.save(), t.translate(Math.round(this.x - s.scrollLeft), Math.round(this.y - s.scrollTop)), t.rotate(this.shockwaveAngle), t.beginPath(), t.arc(0, 0, 1 * (this.speed / 5), 0, Math.PI, !0), t.strokeStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + h(25, 60) / 100 + ")", t.lineWidth = this.lineWidth, t.stroke(), t.restore())
-    }, t.Particle = i, t.Firework = s, t.rand = h, t
+            t.beginPath()
+            t.moveTo(Math.round(this.coordLast[i].x - s.scrollLeft),Math.round(this.coordLast[i].y - s.scrollTop))
+            t.lineTo(Math.round(this.x - s.scrollLeft),Math.round(this.y - s.scrollTop))
+             t.closePath()
+            t.strokeStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + this.alpha + ")"
+            t.stroke()
+            s.showTarget && (t.save(), t.beginPath(), t.arc(Math.round(this.targetX - s.scrollLeft), Math.round(this.targetY - s.scrollTop), this.targetRadius, 0, 2 * Math.PI, !1), t.closePath(), t.lineWidth = 1, t.stroke(), t.restore())
+            s.showShockwave && (t.save(), t.translate(Math.round(this.x - s.scrollLeft), Math.round(this.y - s.scrollTop)), t.rotate(this.shockwaveAngle), t.beginPath(), t.arc(0, 0, 1 * (this.speed / 5), 0, Math.PI, !0), t.strokeStyle = "hsla(" + this.hue + ", 100%, " + this.brightness + "%, " + h(25, 60) / 100 + ")", t.lineWidth = this.lineWidth, t.stroke(), t.restore())
+    }
+    t.Particle = i
+    t.Firework = s
+    t.rand = h
+    return t
+
 }();;
 var Index = function() {
-    function e() {
-        var e = 360 * c / d;
-        s.each(function(t, n) {
-            var i = l * c + (t - 2) * e;
-            $(n).css({
-                marginTop: 100 * Math.sin(i) - w / 2,
-                marginLeft: 100 * Math.cos(i) - w / 2
-            })
-        })
-    }
-
-    function t() {
-        return F.map(function() {
-            var e = $(this).data(),
-                t = $(this).offset();
-            return {
-                top: t.top - e.t,
-                left: t.left - e.l,
-                angle: +e.angle
-            }
-        })
-    }
     var h = function() {
         return /(msie|trident)/.test(navigator.userAgent.toLowerCase())
     };
     if (!document.createElement("canvas").getContext || h()) return void $("canvas").remove();
+
 }();
