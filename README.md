@@ -17,7 +17,7 @@
 
 ## Power  --------   canvas粉末效果  
 
- [预览地址](http://htmlpreview.github.io/?https://github.com/AlanSean/gather/blob/master/powder/index.html)
+ [预览地址](https://alansean.github.io/gather/powder/index.html)
 
  来源渠道:
 
