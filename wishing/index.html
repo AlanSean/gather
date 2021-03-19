@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="wishing">
+    <div class="container" onclick="wishing()">
+      <div class="front"></div>
+      <div class="middle" style="transform: translateZ(1px);"></div>
+      <div class="middle" style="transform: translateZ(2px);"></div>
+      <div class="middle" style="transform: translateZ(3px);"></div>
+      <div class="middle" style="transform: translateZ(4px);"></div>
+      <div class="middle" style="transform: translateZ(5px);"></div>
+      <div class="middle" style="transform: translateZ(6px);background-color: #e4c14f;"></div>
+      <div class="middle" style="transform: translateZ(7px);background-color: #e4c14f;"></div>
+      <div class="middle" style="transform: translateZ(8px);background-color: #e4c14f;"></div>
+      <div class="middle" style="transform: translateZ(9px);background-color: #e4c14f;"></div>
+      <div class="back"></div>
+    </div> 
+  </div>
+
+  <div class="button" onclick="reset()">重置</div>
+</body>
+<script>
+  function $(id){
+    return document.querySelector(id);
+  }
+  function wishing(){
+    $('.container').className = 'container run';
+  }
+  function reset(){
+    console.log(234)
+    $('.container').className = 'container';
+  }
+</script>
+</html>

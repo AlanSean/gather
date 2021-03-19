@@ -37,5 +37,8 @@
 
 [我是源码地址](https://github.com/shiyangzhaoa/billboard)
 
+## wishing ----------- 许愿硬币
 
+	[预览地址](https://alansean.github.io/gather/wishing/index.html)
 
+	来源渠道: 自己开发
