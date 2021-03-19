@@ -39,6 +39,6 @@
 
 ## wishing ----------- 许愿硬币
 
-	[预览地址](https://alansean.github.io/gather/wishing/index.html)
+  [预览地址](https://alansean.github.io/gather/wishing/index.html)
 
 	来源渠道: 自己开发
